@@ -17,11 +17,12 @@ var snake0 = game.spawnLongSnake();
 view.init();
 
 var controller = new GameController(view, game);
-controller.controls = [
-    { 'left': 37, 'up': 38, 'right': 39, 'down': 40, 'startstop': 32 }
-];
 
-game.start();
+controller.registerSnakeControls(snake0, {
+    'left': 37, 'up': 38, 'right': 39, 'down': 40
+});
+
+game.init();
 
 
 

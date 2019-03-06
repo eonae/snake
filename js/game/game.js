@@ -6,18 +6,25 @@ function Game(size) {
 
     var _this = this;
 
-    this.active = true;
+    this.active = false;
     this.snakes = [];
     this.targets = [];
     this.size = size;
     this.transparentBounds = DEFAULT_TRANSPARENT;
+
+    this.init = function() {
+        for (var i = 0; i < this.snakes.length; i++) {
+            this.spawnTarget();
+        }
+        this.start();
+    }
 
     this.start = function() {
         for (var snake of this.snakes) {
             snake.stop = false;
             snake.startTimer();
         }
-        this.spawnTarget();
+        this.active = true;
         this.emit('start', { game: this} );
     }
 
@@ -25,6 +32,7 @@ function Game(size) {
         for (var snake of this.snakes) {
             snake.stop = true;
         }
+        this.active = false;
         this.emit('stop', { game: this} );
     }
 

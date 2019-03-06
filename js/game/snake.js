@@ -18,6 +18,22 @@ function Snake() {
     this.justVacated = null;
     this.justOccupied = null;
     this.growOnNextMove = false;
+    this.directionChanged = false;
+
+    this.changeDirection = function(dir) {
+        if (!(this.directionChanged || this.stop)) {
+            var directionMap = {
+                'left' : { dx: -1, dy: 0 },
+                'up' : { dx: 0, dy: -1 },
+                'right' : { dx: 1, dy: 0 },
+                'down' : { dx: 0, dy: 1 }
+            }
+            if (notOpposite(dir, this.direction)) {
+                this.direction = directionMap[dir];
+                this.directionChanged = true;
+            }
+        }
+    }
 
     this.grow = function() {
         this.growOnNextMove = true;
@@ -71,6 +87,8 @@ function Snake() {
         this.segments[0].position = nextPos;
 
         this.justOccupied = clonePosition(nextPos);
+        
+        this.directionChanged = false;
 
         //this.logPosition();
 
@@ -122,7 +140,7 @@ function onTimerTick(snake) {
             onTimerTick(snake);
         }, snake.interval);
     } else {
-        debugger;
+        //..
     }
 }
 

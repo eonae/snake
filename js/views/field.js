@@ -33,7 +33,7 @@ function GameField(game) {
 
     var snake = args.snake;
     _this.getCell(snake.justOccupied).classList.toggle('snake0');
-    
+
     if (snake.justVacated) {
         _this.getCell(snake.justVacated).classList.toggle('snake0');
     }
@@ -45,10 +45,6 @@ function GameField(game) {
         _this.getCell(args.target.position).classList.toggle('target');
     }
 
-    this.keydownHandler = function(event) {
-        _this.emit('key', { keyCode: event.keyCode });
-    }
-
     this.init = function() {
 
         for (var snake of game.snakes) {
@@ -57,13 +53,10 @@ function GameField(game) {
             }
         }
 
-        game.on('start', function() {
+        window.addEventListener('keydown', function(event) {
+            _this.emit('key', { keyCode: event.keyCode });
+        });
 
-            window.addEventListener('keydown', _this.keydownHandler);
-        });
-        game.on('stop', function() {
-            window.removeEventListener('keydown', _this.keydownHandler);
-        });
         game.on('change', _this.updateSnake);
         game.on('target', _this.updateTarget);
     
