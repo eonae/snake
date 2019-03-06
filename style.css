@@ -8,20 +8,34 @@
 
 .cell {
     box-sizing: border-box;
-    border: 1px solid blue;
+    border: 1px solid lightgray;
     width: 30px;
     height: 30px;
     font-size: .6em;
+    transition: 0.2s;
 }
 
 .snake0 {
+    transition: 1s;
     background: green;
 }
 
 .target {
     background: red;
+    animation: bouncing linear 1s;
+    animation-iteration-count: 3;
 }
 
 .head {
+    /* transition: 0.5s; */
     background: yellow !important;
+}
+
+@keyframes bouncing {
+    50%{
+        background: darkred;
+    }
+    100%{
+        background: red;
+    }
 }

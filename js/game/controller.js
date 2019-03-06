@@ -15,17 +15,24 @@ function GameController(view, game) {
 
     this.registerSnakeControls = function(snake, controls) {
 
+        var directionMap = {
+            'left' : { dx: -1, dy: 0 },
+            'up' : { dx: 0, dy: -1 },
+            'right' : { dx: 1, dy: 0 },
+            'down' : { dx: 0, dy: 1 }
+        }
+
         this.controls[controls.left] = function() {
-            snake.changeDirection('left');
+            snake.changeDirection(directionMap['left']);
         }
         this.controls[controls.right] = function() {
-            snake.changeDirection('right');
+            snake.changeDirection(directionMap['right']);
         }
         this.controls[controls.up] = function() {
-            snake.changeDirection('up');
+            snake.changeDirection(directionMap['up']);
         }
         this.controls[controls.down] = function() {
-            snake.changeDirection('down');
+            snake.changeDirection(directionMap['down']);
         }
     }
 
@@ -36,7 +43,6 @@ function GameController(view, game) {
             return true;
         }
         return false;
-
     });
 }
 

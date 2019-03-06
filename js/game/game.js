@@ -44,16 +44,20 @@ function Game(size) {
     }
 
     this.checkCollision = function(snake) {
-        var headPos = snake.segments[0].position;
-        for (var sn of this.snakes) {
 
-            if (sn.occupies(headPos) && !samePosition(sn.segments[0].position, headPos)) {
-                debugger;
+        for (var sn of this.snakes) {
+            if (sn === snake) {
+                console.log(sn.occupies(snake.getHeadPosition()));
+                if (sn.occupies(snake.getHeadPosition()) !== 0) {
+                    return sn;
+                }
+            } else if (sn.occupies(snake.getHeadPosition()) !== -1) {
                 return sn;
             }
         }
+
         for (var target of this.targets) {
-            if (samePosition(target.position, headPos)) {
+            if (samePosition(target.position, snake.getHeadPosition())) {
                 return target;
             }
         }
@@ -87,13 +91,12 @@ function Game(size) {
                     //args.snake.interval -= 50; Ускорение!
                     args.snake.grow();
                 } else if (collision instanceof Snake) {
-                    _this.stop();
+                    _this.stop();   // Здесь надо разобраться с порядком действий - сначала стоп или сначала emit!
                     alert('ooops');
                 } else {
                     alert('Unidentified collistion!');
                 }
             }
-
             
             _this.emit('change', { snake: args.snake });
         });
@@ -152,7 +155,7 @@ function Game(size) {
 
     this.isFree = function(position) {
         for (var snake of this.snakes) {
-            if (snake.occupies(position)) return false;
+            if (snake.occupies(position) !== -1) return false;
         }
         for (var target of this.targets) {
             if (samePosition(target.position, position)) return false;

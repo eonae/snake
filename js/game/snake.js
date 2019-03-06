@@ -20,16 +20,19 @@ function Snake() {
     this.growOnNextMove = false;
     this.directionChanged = false;
 
+    this.getHeadPosition = function() {
+        return clonePosition(this.segments[0].position);
+    }
+
+    this.length = function() {
+        return this.segments.length;
+    }
+
     this.changeDirection = function(dir) {
         if (!(this.directionChanged || this.stop)) {
-            var directionMap = {
-                'left' : { dx: -1, dy: 0 },
-                'up' : { dx: 0, dy: -1 },
-                'right' : { dx: 1, dy: 0 },
-                'down' : { dx: 0, dy: 1 }
-            }
+
             if (notOpposite(dir, this.direction)) {
-                this.direction = directionMap[dir];
+                this.direction = dir;
                 this.directionChanged = true;
             }
         }
@@ -110,25 +113,31 @@ function Snake() {
     }
 
     this.occupies = function(position) {
-        for (var segment of this.segments) {
-            if (samePosition(segment.position, position))
-                return true;
+
+        for (var i = this.length() - 1; i >= 0; i--) {
+            if (samePosition(this.segments[i].position, position)) {
+                return i;
+            }
         }
-        return false;
+
+        // for (var segment of this.segments) {
+        //     if (samePosition(segment.position, position))
+        //         return this.segments.lastIndexOf(segment);            /// То есть возвращаем не факт, что есть пересечение, а номер сегмента.
+        // }
+        return -1;
     }
 
     this.logPosition = function() {
         console.log('Current position ' + this.segments[0].position.x + ' ' + this.segments[0].position.y);
         console.log('JustVacated ' + this.justVacated.x + ' ' + this.justVacated.y);
         console.log('JustOccupied ' + this.justOccupied.x + ' ' + this.justOccupied.y);
-    } 
+    }
 
     this.startTimer = function() {
         setTimeout(function() {
             onTimerTick(_this);
         }, _this.interval);
     }
-
 }
 
 function onTimerTick(snake) {
