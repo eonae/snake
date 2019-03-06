@@ -1,0 +1,27 @@
+.field {
+    max-width: 1000px;
+    display: flex;
+}
+
+.fieldColumn {
+}
+
+.cell {
+    box-sizing: border-box;
+    border: 1px solid blue;
+    width: 30px;
+    height: 30px;
+    font-size: .6em;
+}
+
+.snake0 {
+    background: green;
+}
+
+.target {
+    background: red;
+}
+
+.head {
+    background: yellow !important;
+}
