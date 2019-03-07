@@ -1,19 +1,29 @@
 
-function GameController(view, game) {
+
+
+function GameController(view, engine) {
 
     var _this = this;
 
     this.controls = {
         32: function() {         // Пробел
-            if (game.active) {
-                game.stop();
+            if (engine.active) {
+                engine.stop();
             } else {
-                game.start();
+                engine.start();
             }
         }
     };
 
     this.registerSnakeControls = function(snake, controls) {
+
+        if (!controls) {
+            if (snake.controls) {
+                controls  = snake.controls;
+            } else {
+                throw new Error('Не задано управление!');
+            }
+        }
 
         var directionMap = {
             'left' : { dx: -1, dy: 0 },
@@ -44,6 +54,10 @@ function GameController(view, game) {
         }
         return false;
     });
+
+    for (var snake of engine.snakes) {
+        this.registerSnakeControls(snake);
+    }
 }
 
 

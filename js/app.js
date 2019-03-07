@@ -2,27 +2,47 @@
 
 var DEFAULT_TRANSPARENT = true;
 var DEFAULT_START_INTERVAL = 150;
-var SIZE = { width: 20, height: 20 };
+var DEFAULT_APPEARENCE = { head: 'yellow', body: 'green' };
+var SIZE = { width: 30, height: 16 };
+var ACCELERATION_FACTOR = 0.2; // %
 
 /////////////////////////////////////////
 
-var game = new Game(SIZE);
+var engine = new Engine(SIZE);
 
-var view = new GameField(game); // game!
-
-view.bind(document.querySelector('.field'));
-
-var snake0 = game.spawnLongSnake();
-
-view.init();
-
-var controller = new GameController(view, game);
-
-controller.registerSnakeControls(snake0, {
-    'left': 37, 'up': 38, 'right': 39, 'down': 40
+engine.addSnake({
+    appearence: {
+        head: 'yellow',
+        body: 'green'
+    },
+    controls: {
+        'left': 37,
+        'up': 38,
+        'right': 39,
+        'down': 40
+    }
 });
 
-game.init();
+engine.addSnake({
+    appearence: {
+        head: 'brown',
+        body: 'blue'
+    },
+    controls: {
+        'left': 65,
+        'up': 87,
+        'right': 68,
+        'down': 83
+    }
+});
+
+var field = new GameField(engine); // game!
+field.bind(document.querySelector('.field'));
+
+var controller = new GameController(field, engine);
+
+field.init();
+engine.init();
 
 
 

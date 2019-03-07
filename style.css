@@ -1,3 +1,57 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+header {
+    height: 30px;
+    background: red;
+    padding: 10px;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+}
+
+
+.container {
+    width: 700px;
+    margin: 0 auto;
+}
+
+.players {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.playerCard {
+    box-sizing: border-box;
+    width: 200px;
+    margin: 10px 0;
+    padding: 10px;
+    box-shadow: 0 0 5px gray; 
+}
+
+.playerCard > div {
+    padding: 2px 0;
+}
+
+.playerCard span {
+    margin-left: 10px;
+    font-size: 1.2em;
+    color: palevioletred;
+}
+
+.playerCard .playerName {
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+.fieldContainer {
+    display: flex;
+    justify-content: center;
+}
+
 .field {
     max-width: 1000px;
     display: flex;
@@ -15,7 +69,17 @@
     transition: 0.2s;
 }
 
-.snake0 {
+
+.blueBody {
+    transition: 1s;
+    background: blue;
+}
+
+.brownHead {
+    background: brown;
+}
+
+.greenBody {
     transition: 1s;
     background: green;
 }
@@ -26,8 +90,7 @@
     animation-iteration-count: 3;
 }
 
-.head {
-    /* transition: 0.5s; */
+.yellowHead {
     background: yellow !important;
 }
 

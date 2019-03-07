@@ -5,6 +5,14 @@ function GameField(game) {
     var _this = this;
     this.cells = [];
 
+    this.classes = {};
+
+    this.setClasses = function() {
+        for (var snake of game.snakes) {
+
+        }
+    }
+
     this.getCell = function(position) {
         return this.cells[position.x][position.y];
     }
@@ -23,7 +31,7 @@ function GameField(game) {
 
         for (var x = 0; x < game.size.width; x++) {
             $column = create('div', ['fieldColumn']);
-            for (var y = 0; y < game.size.width; y++) {
+            for (var y = 0; y < game.size.height; y++) {
                 var $cell = this.cells[x][y];
                 $column.appendChild($cell);
             }
@@ -38,24 +46,22 @@ function GameField(game) {
     // 3) добавить snake там, где был head, если длина > 1.
     // 4) убрать snake в конце
 
-    // if (this.test) debugger;
-
     var snake = args.snake;
+    var clsHead = _this.classes[snake.id].head;
+    var clsBody = _this.classes[snake.id].body;
 
-    // this.test = snake.growOnNextMove; //debug
-
-    _this.getCell(snake.justOccupied).classList.add('head');
+    _this.getCell(snake.justOccupied).classList.add(clsHead);
 
     if (snake.justVacated) { // Будет null если змейка выросла.
-        _this.getCell(snake.justVacated).classList.remove('head');
-        _this.getCell(snake.justVacated).classList.remove('snake0');
+        _this.getCell(snake.justVacated).classList.remove(clsHead);
+        _this.getCell(snake.justVacated).classList.remove(clsBody);
     }
 
 
     if (snake.segments.length > 1) {
         var $secondSegment = _this.getCell(snake.segments[1].position);
-        $secondSegment.classList.remove('head');
-        $secondSegment.classList.add('snake0');
+        $secondSegment.classList.remove(clsHead);
+        $secondSegment.classList.add(clsBody);
     }
     
 
@@ -76,9 +82,16 @@ function GameField(game) {
     this.init = function() {
 
         for (var snake of game.snakes) {
+
+            var clsHead = snake.appearence.head + 'Head';
+            var clsBody = snake.appearence.body + 'Body';
+
+            // Создаём мапу классов.
+            _this.classes[snake.id] = { head: clsHead, body: clsBody };
+
             for (var i = 0; i < snake.segments.length; i++)
             {
-                var cls = (i === 0) ? 'head' : 'snake0';
+                var cls = (i === 0)? clsHead : clsBody
                 _this.getCell(snake.segments[i].position).classList.add(cls);
             }
         }

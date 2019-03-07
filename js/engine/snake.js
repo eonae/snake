@@ -5,9 +5,13 @@ function Segment() {
     }
 }
 
+var _nextId = 0;
+
 function Snake() {
 
     var _this = this;
+
+    this.id = _nextId++;
 
     this.stop = true;
     this.segments = [ new Segment() ];
@@ -19,6 +23,13 @@ function Snake() {
     this.justOccupied = null;
     this.growOnNextMove = false;
     this.directionChanged = false;
+    this.appearence = DEFAULT_APPEARENCE;
+
+    this.speedUp = function() {
+        this.interval *= (1 - ACCELERATION_FACTOR);
+    }
+
+    this.controls = null;
 
     this.getHeadPosition = function() {
         return clonePosition(this.segments[0].position);

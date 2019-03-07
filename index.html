@@ -5,15 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700&amp;subset=cyrillic" rel="stylesheet">
     <script src="js/util.js"></script>
-    <script src="js/game/snake.js"></script>
-    <script src="js/game/game.js"></script>
+    <script src="js/engine/snake.js"></script>
+    <script src="js/engine/engine.js"></script>
     <script src="js/views/field.js"></script>
-    <script src="js/game/controller.js"></script>
+    <script src="js/engine/controller.js"></script>
     <script src = "js/app.js" defer></script>
     <title>Document</title>
 </head>
 <body>
-    <div class="field"></div>
+    <header>
+        <div class="container">
+            <h1>Snakesss..</h1>
+        </div>
+    </header>
+    <div class="players container">
+        <div class="playerCard">
+            <div>Player: <span class="playerName">eonae</span></div>
+            <div>Score: <span class="score">0</span> </span></div>
+            <div>Speed: <span class="speed">1000</span></div>
+        </div>
+        <div class="playerCard">
+                <div>Player: <span class="playerName">eonae</span></div>
+                <div>Score: <span class="score">0</span> </span></div>
+                <div>Speed: <span class="speed">1000</span></div>
+        </div>
+    </div>
+    <div class="fieldContainer container">
+            <div class="field"></div>
+    </div>
+    
+
+
+
+
 </body>
 </html>
