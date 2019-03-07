@@ -37,6 +37,8 @@ function GameField(game) {
             }
             $field.appendChild($column);
         }
+
+        //this.init();
     }
 
     this.updateSnake = function(args) {
@@ -46,6 +48,7 @@ function GameField(game) {
     // 3) добавить snake там, где был head, если длина > 1.
     // 4) убрать snake в конце
 
+    //debugger;
     var snake = args.snake;
     var clsHead = _this.classes[snake.id].head;
     var clsBody = _this.classes[snake.id].body;
@@ -102,7 +105,6 @@ function GameField(game) {
 
         game.on('change', _this.updateSnake);
         game.on('target', _this.updateTarget);
-    
     }
 }
 

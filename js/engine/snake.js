@@ -11,22 +11,37 @@ function Snake() {
 
     var _this = this;
 
-    this.id = _nextId++;
+    // Settings ////////////////////////
 
-    this.stop = true;
-    this.segments = [ new Segment() ];
-    this.direction = { dx: 0, dy: 0 };               // По умолчанию не двигается.
-    this.transparentBounds = DEFAULT_TRANSPARENT;
-    this.interval = DEFAULT_START_INTERVAL;
+    this.id = _nextId++;
+    this.transparentBounds = null;
     this.bounds = null;
+    this.interval = null;
+    this.accelerationFactor = null;
+    this.minInterval = null;
+    this.appearence = null;
+    this.speedUpFunction = function(currentInterval, factor) {
+        var delta = factor 
+        return currentInterval * (1 - delta)
+    }
+
+    // State ///////////////////////////
+
+    this.segments = [ new Segment() ];
+    this.stop = true;
+    this.direction = { dx: 0, dy: 0 }; // По умолчанию не двигается.
     this.justVacated = null;
     this.justOccupied = null;
     this.growOnNextMove = false;
     this.directionChanged = false;
-    this.appearence = DEFAULT_APPEARENCE;
 
+    ///////////////////////////////////
+    
     this.speedUp = function() {
-        this.interval *= (1 - ACCELERATION_FACTOR);
+
+        var interval = this.speedUpFunction(this.interval, this.accelerationFactor);
+        if (this.minInterval && interval > this.minInterval)
+            this.interval = interval;
     }
 
     this.controls = null;
@@ -93,8 +108,7 @@ function Snake() {
                         nextPos.x = 0;
                         break;
                 }
-            } 
-            console.log(cross);
+            }
             this.emit('cross', { snake: this, bound: cross });
         }
 
@@ -103,8 +117,6 @@ function Snake() {
         this.justOccupied = clonePosition(nextPos);
         
         this.directionChanged = false;
-
-        //this.logPosition();
 
         this.emit('move', { snake: this } );
     }
@@ -131,17 +143,7 @@ function Snake() {
             }
         }
 
-        // for (var segment of this.segments) {
-        //     if (samePosition(segment.position, position))
-        //         return this.segments.lastIndexOf(segment);            /// То есть возвращаем не факт, что есть пересечение, а номер сегмента.
-        // }
         return -1;
-    }
-
-    this.logPosition = function() {
-        console.log('Current position ' + this.segments[0].position.x + ' ' + this.segments[0].position.y);
-        console.log('JustVacated ' + this.justVacated.x + ' ' + this.justVacated.y);
-        console.log('JustOccupied ' + this.justOccupied.x + ' ' + this.justOccupied.y);
     }
 
     this.startTimer = function() {

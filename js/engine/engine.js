@@ -1,5 +1,6 @@
 function Target(position) {
     this.position = position;
+    this.score = 10;
 }
 
 function Engine(size) {
@@ -10,13 +11,19 @@ function Engine(size) {
     this.snakes = [];
     this.targets = [];
     this.size = size;
-    this.transparentBounds = DEFAULT_TRANSPARENT;
+    this.transparentBounds = null;
 
     this.addSnake = function(config) {
 
         var snake = this.spawnSnake();
-        snake.controls = config.controls;
-        snake.appearence = config.appearence;
+        // snake.controls = config.controls;
+        // snake.appearence = config.appearence;
+        // snake.accelerationFactor = config.accelerationFactor;
+        // snake.interval = config.interval;
+        // snake.minInterval = config.minInterval;
+        Object.assign(snake, config);
+
+        return snake;
     };
 
     this.init = function() {
@@ -45,7 +52,6 @@ function Engine(size) {
 
     this.spawnTarget = function() {
         var target = new Target(this.getRandomPosition());
-        console.log('spawned at ' + target.position.x + ' ' + target.position.y);
         this.targets.push(target);
         this.emit('target', { target: target }); // Потом нужно сделать отдельно spawn и consume
     }
@@ -54,7 +60,6 @@ function Engine(size) {
 
         for (var sn of this.snakes) {
             if (sn === snake) {
-                console.log(sn.occupies(snake.getHeadPosition()));
                 if (sn.occupies(snake.getHeadPosition()) !== 0) {
                     return sn;
                 }
@@ -71,18 +76,10 @@ function Engine(size) {
         return null;
     }
 
-
-    // Debug 
-    this.spawnLongSnake = function() {
+    this.spawnSnake = function() {
         var snake = new Snake();
-        console.log(snake instanceof Snake);
 
-        snake.segments[0].position = { x: 10, y: 10 };
-        for (var i = 0; i < 5; i++) {
-            var segment = new Segment();
-            segment.position = { x: 10, y: 11 + i }
-            snake.segments.push(segment);
-        }
+        snake.segments[0].position = this.getRandomPosition();
         snake.justOccupied = clonePosition(snake.segments[0].position);
         snake.transparentBounds = this.transparentBounds;
         snake.bounds = size;
@@ -96,45 +93,13 @@ function Engine(size) {
             if (collision) {
                 if (collision instanceof Target) {
                     _this.targets.splice(_this.targets.indexOf(collision), 1);
-                    _this.emit('target', { target: collision });
+                    _this.emit('target', { target: collision }); // Это пока нужно для представления!
                     _this.spawnTarget();
+
                     snake.speedUp();
                     snake.grow();
-                } else if (collision instanceof Snake) {
-                    _this.stop();   // Здесь надо разобраться с порядком действий - сначала стоп или сначала emit!
-                    alert('ooops');
-                } else {
-                    alert('Unidentified collistion!');
-                }
-            }
-            
-            _this.emit('change', { snake: snake });
-        });
-
-        return snake;
-    }
-
-    this.spawnSnake = function() {
-        var snake = new Snake();
-        console.log(snake instanceof Snake);
-
-        snake.segments[0].position = this.getRandomPosition();
-        snake.justOccupied = clonePosition(snake.segments[0].position);
-        snake.transparentBounds = this.transparentBounds;
-        snake.bounds = size;
-        this.snakes.push(snake);
-
-        snake.on('move', function(args) {
-
-            var collision = _this.checkCollision(args.snake);
-
-            if (collision) {
-                if (collision instanceof Target) {
-                    _this.targets.splice(_this.targets.indexOf(collision), 1);
-                    _this.emit('target', { target: collision });
-                    _this.spawnTarget();
-                    //args.snake.interval -= 50; Ускорение!
-                    args.snake.grow();
+                    
+                    _this.emit('score', { snake: snake, score: collision.score });
                 } else if (collision instanceof Snake) {
                     _this.stop();
                     alert('ooops');
@@ -142,9 +107,8 @@ function Engine(size) {
                     alert('Unidentified collistion!');
                 }
             }
-
-            
             _this.emit('change', { snake: args.snake });
+
         });
 
         return snake;
