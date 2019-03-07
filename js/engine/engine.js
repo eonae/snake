@@ -87,6 +87,10 @@ function Engine(size) {
 
         snake.on('move', function(args) {
 
+            if ( !(_this.active) ) {
+                return;
+            }
+
             var snake = args.snake;
             var collision = _this.checkCollision(args.snake);
 
@@ -102,13 +106,12 @@ function Engine(size) {
                     _this.emit('score', { snake: snake, score: collision.score });
                 } else if (collision instanceof Snake) {
                     _this.stop();
-                    alert('ooops');
+                    _this.emit('gameover', { engine: _this, looser: snake });
                 } else {
                     alert('Unidentified collistion!');
                 }
             }
             _this.emit('change', { snake: args.snake });
-
         });
 
         return snake;

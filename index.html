@@ -19,17 +19,50 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Snakesss..</h1>
-        </div>
+        <h1>Snake<span>sss..</span></h1>
     </header>
-    <div class="players container">
+    <section class="start">
+        <p>Choose your game:</p>
+        <div class="start-btns">
+            <div id="single">Single</div>
+            <div id="double">Double</div>
+        </div>
 
-    </div>
-    <div class="fieldContainer container">
+    </section>
+
+    <section class="wrapper flex-container hidden opaque">
+        <div class="players">
+        </div>
+        <div class="fieldContainer">
             <div class="field"></div>
-    </div>
-    
+        </div>
+    </section>
+
+    <section class="results hidden opaque"> 
+        <div class="resultsInside">
+            <div>Game Over!</div>
+            <div id="winner-line" class="hidden">Winner is: <span id="winner"></span> with score</div>
+            <div id="your-score" class="hidden">Your score:</div>
+            <div id="final-score"></div>
+            <div id="one-more">One more?</div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="playerCard template">
         <div>Player: <span class="playerName">eonae</span></div>
@@ -37,8 +70,6 @@
         <div>Length<span class="length">1</span></div>
         <div>Speed: <span class="speed">1000</span></div>
     </div>
-
-
 
 </body>
 </html>

@@ -49,3 +49,21 @@ function getRandomInt(min, max) {
 function notOpposite(direction1, direction2) {
     return !(direction1.dx + direction2.dx === 0 && direction1.dy + direction2.dy === 0);
 }
+
+function hide($element) {
+    var hidden = $element.classList.contains('hidden');
+    if (!hidden)
+        $element.classList.add('hidden');
+}
+
+function show($element) {
+    var hidden = $element.classList.contains('hidden');
+    if (hidden)
+        $element.classList.remove('hidden');
+}
+
+function removeAllChildren(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}

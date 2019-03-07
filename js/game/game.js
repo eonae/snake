@@ -44,6 +44,7 @@ function Game(customConfig) {
 
         var player = new Player(playerConfig.name, snake, engine);
         var field = new PlayerView(player, config.playersContainer);
+        this.players.push(player);
     }
 
     var field = new GameField(engine); // game!

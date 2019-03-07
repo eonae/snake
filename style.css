@@ -1,39 +1,91 @@
+.hidden {
+    display: none !important;
+}
+
+.opaque {
+    opacity: 0;
+    transition: 2s;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
 }
 
 header {
-    height: 30px;
-    background: red;
     padding: 10px;
 }
 
 header h1 {
+    font-size: 50px;
     margin: 0;
     padding: 0;
+    text-align: center;
+}
+
+header h1 span {
+    color: green;
 }
 
 .template {
     display: none;
 }
 
-.container {
-    width: 700px;
-    margin: 0 auto;
+.flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    margin-top: 20px;
+    transition: 2s;
 }
 
 .players {
-    display: flex;
-    justify-content: space-evenly;
+    width: 200px;
+}
+.start {
+    /* padding: 100px; */
+    text-align: center;
+}
+
+.start > p {
+
+}
+
+.start-btns > div {
+    text-align: center;
+    box-sizing: border-box;
+    width: 50%;
+    margin: 0 auto;
+    padding: 50px 0;
+    box-shadow: 0 0 2px gray;
+    font-size: 50px;
+}
+
+.start-btns > div:not(:first-child) {
+    margin-top: 20px;
+}
+.start-btns > div:hover {
+    box-shadow: 0 0 5px gray;
+    background-color: lightgreen;
+    cursor: pointer;
 }
 
 .playerCard {
     box-sizing: border-box;
     width: 200px;
-    margin: 10px 0;
     padding: 10px;
-    box-shadow: 0 0 5px gray; 
+    box-shadow: 0 0 2px gray; 
 }
+
+.playerCard:not(:first-child) {
+    margin-top: 10px;
+}
+
+.playerCard:hover {
+    box-shadow: 0 0 5px gray;
+}
+
 
 .playerCard > div {
     padding: 2px 0;
@@ -56,12 +108,11 @@ header h1 {
 }
 
 .field {
+    position: relative;
     max-width: 1000px;
     display: flex;
+    margin-left: 10px;
 }
-
-/* .fieldColumn {
-} */
 
 .cell {
     box-sizing: border-box;
@@ -76,6 +127,7 @@ header h1 {
 .blueBody {
     transition: 1s;
     background: blue;
+    border-color: blue;
 }
 
 .brownHead {
@@ -88,20 +140,65 @@ header h1 {
 }
 
 .target {
-    background: red;
+    background: coral;
+    transform: rotateZ(45deg) scaleX(0.9) scaleY(0.9);
     animation: bouncing linear 1s;
-    animation-iteration-count: 3;
+    animation-iteration-count: infinite;
 }
 
 .yellowHead {
-    background: yellow !important;
+    background: yellow;
 }
 
 @keyframes bouncing {
     50%{
-        background: darkred;
+        background: palevioletred;
     }
     100%{
-        background: red;
+        background: orange;
     }
+}
+
+.results {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resultsInside {
+    box-sizing: border-box;
+    box-shadow: 0 0 2px gray;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.resultsInside > div {
+    width: 90%;
+    text-align: center;
+    font-size: 30px;
+    padding: 20px 0;
+}
+
+#one-more {
+    width: 90%;
+    padding: 10px;
+    width: 20%;
+    box-shadow: 0 0 2px gray;
+    display: inline-block;
+    text-align: center;
+}
+
+#one-more:hover {
+    box-shadow: 0 0 3px gray;
+}
+
+#winner {
+    font-size: 40px;
+    color: palevioletred;
+}
+
+#final-score {
+    font-size: 60px;
+    color: palevioletred;
 }
