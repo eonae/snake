@@ -17,7 +17,7 @@ var DEFAULT_CONFIG = {
 function Game(customConfig) {
 
     var config = Object.assign(DEFAULT_CONFIG, customConfig);
-    debugger;
+
     if ( !(config.players) || config.players.length === 0)
         throw new Error('Хотя бы один игрок должен быть добавлен!');
 
