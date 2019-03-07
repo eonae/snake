@@ -1,10 +1,10 @@
 
 var game = new Game({
 
-    startInterval: 200,
+    interval: 200,
     minInterval: 100,
     accelerationFactor: 0.05,
-    transparentbounds: true,
+    transparentBounds: true,
     size: {
         width: 30,
         height: 16

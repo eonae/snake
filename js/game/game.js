@@ -1,43 +1,25 @@
-// Defaults ///////////////////////////////
-
-var DEFAULT_FIELD_CONTAINER = '.field';
-var DEFAULT_PLAYERS_CONTAINER = '.players';
-var DEFAULT_TRANSPARENT = true;
-var DEFAULT_START_INTERVAL = 150;
-var DEFAULT_APPEARENCE = { head: 'yellow', body: 'green' };
-var DEFAULT_SIZE = { width: 30, height: 16 };
-var DEFAULT_ACCELERATION_FACTOR = 0.2; // %
-var DEFAULT_NAME = 'unknown';
-
-
-var DEFAULT = {
-    
+var DEFAULT_CONFIG = {
+    defaultName: 'unknown',
+    defaultAppearence: {
+        head: 'yellow',
+        body: 'green'
+    },
+    transparentBounds: true,
+    fieldContainer: '.field',
+    playersContainer: '.players',
+    interval: 400,
+    size: { width: 20, height: 15 },
+    accelerationFactor: 0.05,
 }
 
 /////////////////////////////////////////
 
-function Game(config) {
+function Game(customConfig) {
 
+    var config = Object.assign(DEFAULT_CONFIG, customConfig);
+    debugger;
     if ( !(config.players) || config.players.length === 0)
         throw new Error('Хотя бы один игрок должен быть добавлен!');
-
-    if ( !(config.transparentBounds) )
-        config.transparentBounds = DEFAULT_TRANSPARENT;
-
-    if ( !(config.fieldContainer) )
-        config.fieldContainer = DEFAULT_FIELD_CONTAINER;
-
-    if ( !(config.playersContainer) )
-        config.playersContainer = DEFAULT_PLAYERS_CONTAINER;
-
-    if ( !(config.startInterval) )
-        config.startInterval = DEFAULT_START_INTERVAL;
-
-    if ( !(config.size) )
-        config.size = DEFAULT_SIZE;
-
-    if ( !(config.accelerationFactor) )
-        config.accelerationFactor = DEFAULT_ACCELERATION_FACTOR;
 
     this.players = [];
     
@@ -47,18 +29,19 @@ function Game(config) {
     
     for (var playerConfig of config.players) {
 
-        if ( !(playerConfig.appearence) )
-            playerConfig.appearence = DEFAULT_APPEARENCE;
-        if ( !(playerConfig.name))
-            playerConfig.name = DEFAULT_NAME;
+         if ( !(playerConfig.appearence) )
+             playerConfig.appearence = config.defaultAppearence;
 
         var snake = engine.addSnake({
-            interval: config.startInterval,
+            interval: config.interval,
             minInterval: config.minInterval,
             accelerationFactor: config.accelerationFactor,
             appearence: playerConfig.appearence,
             controls: playerConfig.controls
         });
+
+        if ( !(playerConfig.name))
+            playerConfig.name = config.defaultName;
 
         var player = new Player(playerConfig.name, snake, engine);
         var field = new PlayerView(player, config.playersContainer);
