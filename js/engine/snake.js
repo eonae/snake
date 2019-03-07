@@ -38,10 +38,10 @@ function Snake() {
     ///////////////////////////////////
     
     this.speedUp = function() {
-
         var interval = this.speedUpFunction(this.interval, this.accelerationFactor);
-        if (this.minInterval && interval > this.minInterval)
-            this.interval = minInterval;
+        this.interval = (this.minInterval && interval < this.minInterval)
+            ? this.minInterval
+            : interval;
     }
 
     this.controls = null;
