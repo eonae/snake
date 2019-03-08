@@ -171,6 +171,8 @@ header h1 span {
     width: 90%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .resultsInside > div {
@@ -181,12 +183,17 @@ header h1 span {
 }
 
 #one-more {
-    width: 90%;
-    padding: 10px;
+    padding: 10px 30px;
     width: 20%;
     box-shadow: 0 0 2px gray;
-    display: inline-block;
     text-align: center;
+    margin-bottom: 20px;
+}
+
+#one-more:hover {
+    box-shadow: 0 0 5px gray;
+    background-color: lightgreen;
+    cursor: pointer;
 }
 
 #one-more:hover {
@@ -194,11 +201,18 @@ header h1 span {
 }
 
 #winner {
-    font-size: 40px;
+    font-size: 30px;
+    font-weight: 500;
     color: palevioletred;
 }
 
 #final-score {
     font-size: 60px;
     color: palevioletred;
+}
+
+.start-btns > div:hover {
+    box-shadow: 0 0 5px gray;
+    background-color: lightgreen;
+    cursor: pointer;
 }

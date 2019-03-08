@@ -24,6 +24,7 @@ $btnSingle.addEventListener('click', function() {
 });
 
 $btnDouble.addEventListener('click', function() {
+
     var name1 = prompt('Enter first player name:');
     var name2 = prompt('Enter second player name:');
 
@@ -74,13 +75,13 @@ function toGameScreen() {
 function startNewGame(players) {
     window.game = new Game({
 
-        interval: 250,
+        interval: 180,
         minInterval: 120,
         accelerationFactor: 0.03,
         transparentBounds: true,
         size: {
-            width: 32,
-            height: 18
+            width: 10,
+            height: 10
         },
         players: players
     });
@@ -106,7 +107,6 @@ function showResult(args) {
         : window.game.players[0];
     }
 
-
     switch(window.game.players.length) {
         case 1:
             show($yourScoreLine);
@@ -126,7 +126,8 @@ function showResult(args) {
     var $field = document.querySelector('.field');
 
     hide($gameScreen);
-    removeAllChildren($field);   
+    removeAllChildren($field);
+    removeAllChildren(document.querySelector('.players'));
     show($resultsScreen);
     setTimeout(function() {
         $resultsScreen.classList.remove('opaque');

@@ -37,7 +37,7 @@ function GameField(game) {
             }
             $field.appendChild($column);
         }
-
+        //this.pauseScreen = create('div', ['pause', 'hidden'], 'Pause');
         //this.init();
     }
 

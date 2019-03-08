@@ -5,15 +5,13 @@ function Segment() {
     }
 }
 
-var _nextId = 0;
-
-function Snake() {
+function Snake(id) {
 
     var _this = this;
 
     // Settings ////////////////////////
 
-    this.id = _nextId++;
+    this.id = id;
     this.transparentBounds = null;
     this.bounds = null;
     this.interval = null;

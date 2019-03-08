@@ -12,15 +12,9 @@ function Engine(size) {
     this.targets = [];
     this.size = size;
     this.transparentBounds = null;
-
     this.addSnake = function(config) {
 
         var snake = this.spawnSnake();
-        // snake.controls = config.controls;
-        // snake.appearence = config.appearence;
-        // snake.accelerationFactor = config.accelerationFactor;
-        // snake.interval = config.interval;
-        // snake.minInterval = config.minInterval;
         Object.assign(snake, config);
 
         return snake;
@@ -76,8 +70,11 @@ function Engine(size) {
         return null;
     }
 
+    var nextId = 0;
+
     this.spawnSnake = function() {
-        var snake = new Snake();
+        var id = nextId++;
+        var snake = new Snake(id);
 
         snake.segments[0].position = this.getRandomPosition();
         snake.justOccupied = clonePosition(snake.segments[0].position);
